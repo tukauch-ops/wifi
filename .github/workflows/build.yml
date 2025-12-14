@@ -29,6 +29,11 @@ jobs:
           key: gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: gradle-
 
+      # ▼▼▼▼▼ ここを追加しました ▼▼▼▼▼
+      - name: Gradlew に実行権限を付与
+        run: chmod +x gradlew
+      # ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
       - name: APK ビルド
         run: ./gradlew assembleRelease
 
