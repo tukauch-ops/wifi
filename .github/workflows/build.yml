@@ -1,9 +1,9 @@
+
 name: Build APK
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -11,13 +11,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: リポジトリをチェックアウト
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: JDK をセットアップ
-        uses: actions/setup-java@v3
+      - name: JDK セットアップ
+        uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: temurin
           java-version: 17
 
       - name: Gradle キャッシュ
@@ -25,15 +24,15 @@ jobs:
         with:
           path: |
             ~/.gradle/caches
-            ~/.gradle/wrapper/
+            ~/.gradle/wrapper
           key: gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: gradle-
 
-      # ★★★ chmod のステップは削除します ★★★
+      - name: gradlew 実行権限付与
+        run: chmod +x gradlew
 
-      - name: APK ビルド (グローバルGradleを使用)
-        # ./gradlew ではなく、Actions環境に備え付けの 'gradle' コマンドを使います
-        run: gradle assembleRelease
+      - name: APK ビルド
+        run: ./gradlew :app:assembleRelease
 
       - name: 成果物を保存
         uses: actions/upload-artifact@v4
