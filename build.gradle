@@ -1,18 +1,1 @@
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        // Android Gradle Plugin (AGP) のバージョンを指定
-        // この 'classpath' 行がないと、Actions はAGPを見つけられません。
-        classpath 'com.android.tools.build:gradle:8.5.1' 
-    }
-}
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
