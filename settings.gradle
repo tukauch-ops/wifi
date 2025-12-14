@@ -1,8 +1,11 @@
+
 pluginManagement {
     repositories {
-        gradlePluginPortal()
         google()
         mavenCentral()
+    }
+    plugins {
+        id "com.android.application" version "8.5.1"
     }
 }
 
@@ -13,8 +16,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-// プロジェクト名を元の値に修正（もし違っていたら適宜変更してください）
-rootProject.name = "android-tts-app" 
 
-// 'app' モジュールがこのプロジェクトに含まれていることを宣言
-include ':app'
+rootProject.name = "android-tts-app"
+include(":app")
