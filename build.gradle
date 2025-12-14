@@ -1,26 +1,18 @@
-plugins {
-    id 'com.android.application'
-}
-
-android {
-    namespace 'com.example.myapp'
-    compileSdk 34
-
-    defaultConfig {
-        applicationId "com.example.myapp"
-        minSdk 24
-        targetSdk 34
-        versionCode 1
-        versionName "1.0"
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-        }
+    dependencies {
+        // Android Gradle Plugin (AGP) のバージョンを指定
+        // この 'classpath' 行がないと、Actions はAGPを見つけられません。
+        classpath 'com.android.tools.build:gradle:8.5.1' 
     }
 }
 
-dependencies {
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'androidx.core:core-ktx:1.10.0'
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
 }
