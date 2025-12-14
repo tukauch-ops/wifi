@@ -29,13 +29,11 @@ jobs:
           key: gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: gradle-
 
-      # ▼▼▼▼▼ ここを追加しました ▼▼▼▼▼
-      - name: Gradlew に実行権限を付与
-        run: chmod +x gradlew
-      # ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+      # ★★★ chmod のステップは削除します ★★★
 
-      - name: APK ビルド
-        run: ./gradlew assembleRelease
+      - name: APK ビルド (グローバルGradleを使用)
+        # ./gradlew ではなく、Actions環境に備え付けの 'gradle' コマンドを使います
+        run: gradle assembleRelease
 
       - name: 成果物を保存
         uses: actions/upload-artifact@v4
