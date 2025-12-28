@@ -1,9 +1,9 @@
-
 name: Build APK
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -11,31 +11,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: JDK セットアップ
-        uses: actions/setup-java@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v3
         with:
-          distribution: temurin
-          java-version: 17
+          distribution: 'temurin'
+          java-version: '17'
 
-      - name: Gradle キャッシュ
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: gradle-
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
 
-      - name: gradlew 実行権限付与
-        run: chmod +x gradlew
-
-      - name: APK ビルド
+      - name: Build APK
         run: ./gradlew :app:assembleRelease
-
-      - name: 成果物を保存
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release-apk
-          path: app/build/outputs/apk/release/app-release.apk
