@@ -31,7 +31,11 @@ jobs:
       - name: Build Release APK
         run: |
           gradle-8.7/bin/gradle assembleRelease
-
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: apk
+          path: app/build/outputs/apk/release/
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
