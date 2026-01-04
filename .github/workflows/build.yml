@@ -30,10 +30,10 @@ jobs:
 
       - name: Build Release APK
         run: |
-          gradle-8.7/bin/gradle assembleRelease
+          gradle-8.7/bin/gradle :app:assembleRelease
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: apk
-          path: app/build/outputs/apk/release/
+          name: app-release-apk
+          path: app/build/outputs/apk/
