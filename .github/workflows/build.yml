@@ -28,12 +28,12 @@ jobs:
           wget https://services.gradle.org/distributions/gradle-8.7-bin.zip
           unzip gradle-8.7-bin.zip
 
-      - name: Build Release APK
+      - name: Build Debug APK
         run: |
-          gradle-8.7/bin/gradle :app:assembleRelease
+          gradle-8.7/bin/gradle :app:assembleDebug
 
-      - name: Upload APK
+      - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-release-apk
-          path: app/build/outputs/apk/release/
+          name: app-debug-apk
+          path: app/build/outputs/apk/debug/
