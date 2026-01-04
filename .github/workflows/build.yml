@@ -18,8 +18,8 @@ jobs:
       - uses: android-actions/setup-android@v3
 
       - run: |
-          wget https://services.gradle.org/distributions/gradle-8.2-bin.zip
-          unzip gradle-8.2-bin.zip
+          wget https://services.gradle.org/distributions/gradle-8.7-bin.zip
+unzip gradle-8.7-bin.zip
 
       - run: |
-          gradle-8.2/bin/gradle assembleRelease
+         gradle-8.7/bin/gradle assembleRelease 
