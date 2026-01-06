@@ -1,54 +1,74 @@
 package com.example.ttsapp;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Locale;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
-    TextToSpeech tts;
+    private static final int PICK_TEXT_FILE = 1;
+    private TextToSpeech tts;
+    private String fileContent = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        EditText editText = new EditText(this);
-        Button button = new Button(this);
-        button.setText("読み上げ");
+        tts = new TextToSpeech(this, status -> tts.setLanguage(Locale.JAPANESE));
 
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.addView(editText);
-        layout.addView(button);
+        Button pickButton = findViewById(R.id.pickFileButton);
+        pickButton.setOnClickListener(v -> openFilePicker());
 
-        setContentView(layout);
-
-        tts = new TextToSpeech(this, status -> {
-            if (status == TextToSpeech.SUCCESS) {
-                tts.setLanguage(Locale.JAPANESE);
+        Button readButton = findViewById(R.id.readButton);
+        readButton.setOnClickListener(v -> {
+            if (!fileContent.isEmpty()) {
+                tts.speak(fileContent, TextToSpeech.QUEUE_FLUSH, null, "tts1");
             }
         });
+    }
 
-        button.setOnClickListener(v ->
-                tts.speak(
-                        editText.getText().toString(),
-                        TextToSpeech.QUEUE_FLUSH,
-                        null,
-                        "tts1"
-                )
-        );
+    private void openFilePicker() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.setType("text/*");
+        startActivityForResult(intent, PICK_TEXT_FILE);
     }
 
     @Override
-    protected void onDestroy() {
-        if (tts != null) {
-            tts.shutdown();
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_TEXT_FILE && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                Uri uri = data.getData();
+                readFile(uri);
+            }
         }
-        super.onDestroy();
     }
-                                  }
+
+    private void readFile(Uri uri) {
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(uri);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append(" ");
+            }
+            reader.close();
+            fileContent = sb.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+                                                       }
