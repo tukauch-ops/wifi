@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
+    <!-- ScrollView 内の EditText -->
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="0dp"
@@ -20,11 +21,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="ここに文字を入力"
-            android:minLines="5"
             android:gravity="top"
+            android:minLines="5"
             android:inputType="textMultiLine"/>
     </ScrollView>
 
+    <!-- 画面中央に固定されたボタン -->
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
@@ -33,5 +35,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:elevation="10dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
