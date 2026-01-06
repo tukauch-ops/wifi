@@ -6,11 +6,10 @@
     android:fitsSystemWindows="true"
     android:padding="16dp">
 
-    <!-- ScrollView + EditText -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="80dp"> <!-- ボタン高さ + ナビゲーションバー分の余裕 -->
+        android:paddingBottom="80dp">
 
         <EditText
             android:id="@+id/editText"
@@ -22,12 +21,11 @@
             android:inputType="textMultiLine"/>
     </ScrollView>
 
-    <!-- フローティング読み上げボタン -->
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="読み上げ"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="16dp"/> <!-- 下端の余白 -->
+        android:layout_marginBottom="16dp"/>
 </FrameLayout>
