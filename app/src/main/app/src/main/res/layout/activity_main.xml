@@ -1,29 +1,25 @@
-
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.ttsapp">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <application
+        android:allowBackup="true"
+        android:label="TTS App"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.Material.Light.NoActionBar">
 
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="ここに文字を入力"
-            android:minLines="5"
-            android:gravity="top"
-            android:inputType="textMultiLine" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="読み上げ" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
-    </LinearLayout>
-</ScrollView>
+        </activity>
+
+    </application>
+
+</manifest>
