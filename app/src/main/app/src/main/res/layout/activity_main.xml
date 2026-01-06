@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:padding="16dp">
 
+    <!-- ScrollView + EditText -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="80dp">
+        android:paddingBottom="16dp">
 
         <EditText
             android:id="@+id/editText"
@@ -21,11 +21,11 @@
             android:inputType="textMultiLine"/>
     </ScrollView>
 
+    <!-- 真ん中固定の読み上げボタン -->
     <Button
         android:id="@+id/button"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="読み上げ"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="16dp"/>
+        android:layout_gravity="center"/>
 </FrameLayout>
