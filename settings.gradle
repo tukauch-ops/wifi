@@ -19,3 +19,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "android-tts-app"
 include(":app")
+    
