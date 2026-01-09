@@ -21,11 +21,13 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x ./gradlew
+      - name: Install Gradle
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gradle
 
-      - name: Build Debug APK with Gradle Wrapper
-        run: ./gradlew :app:assembleDebug
+      - name: Build Debug APK (NO WRAPPER)
+        run: gradle :app:assembleDebug
 
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
