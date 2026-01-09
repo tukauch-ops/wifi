@@ -27,7 +27,7 @@ jobs:
       - name: Build Debug APK with Gradle Wrapper
         run: ./gradlew :app:assembleDebug
 
-      - name: Upload APK
+      - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
           name: app-debug-apk
