@@ -16,6 +16,7 @@ android {
 
     buildTypes {
         debug {
+            // Debug は署名不要
         }
         release {
             minifyEnabled false
