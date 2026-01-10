@@ -32,12 +32,15 @@ jobs:
       # APK の名前を安全に app-debug.apk に変更
       - name: Rename Debug APK safely
         run: |
-          DEBUG_APK=$(find app/build/outputs/apk/debug/ -name "*.apk" | head -n 1)
+          echo "Looking for Debug APK..."
+          DEBUG_APK=$(find app/build/outputs/apk/debug/ -maxdepth 1 -name "*.apk" | head -n 1)
           if [ -f "$DEBUG_APK" ]; then
+            echo "Found APK: $DEBUG_APK"
             mv "$DEBUG_APK" app/build/outputs/apk/debug/app-debug.apk
             echo "Renamed APK to app-debug.apk"
           else
-            echo "Error: Debug APK not found!"
+            echo "Error: Debug APK not found in app/build/outputs/apk/debug/"
+            ls -l app/build/outputs/apk/debug/
             exit 1
           fi
 
