@@ -29,24 +29,9 @@ jobs:
       - name: Build Debug APK
         run: ./gradlew :app:assembleDebug
 
-      # APK の名前を安全に app-debug.apk に変更
-      - name: Rename Debug APK safely
-        run: |
-          echo "Looking for Debug APK..."
-          DEBUG_APK=$(find app/build/outputs/apk/debug/ -maxdepth 1 -name "*.apk" | head -n 1)
-          if [ -f "$DEBUG_APK" ]; then
-            echo "Found APK: $DEBUG_APK"
-            mv "$DEBUG_APK" app/build/outputs/apk/debug/app-debug.apk
-            echo "Renamed APK to app-debug.apk"
-          else
-            echo "Error: Debug APK not found in app/build/outputs/apk/debug/"
-            ls -l app/build/outputs/apk/debug/
-            exit 1
-          fi
-
-      # Debug APK をアップロード
+      # Debug APK を安全にアップロード（サブフォルダも含む）
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
           name: debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: app/build/outputs/apk/debug/**/*.apk
