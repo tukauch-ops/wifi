@@ -1,32 +1,16 @@
-plugins {
-    id 'com.android.application'
-}
-
-android {
-    namespace "com.example.ttsapp"
-    compileSdk 34
-
-    defaultConfig {
-        applicationId "com.example.ttsapp"
-        minSdk 21
-        targetSdk 34
-        versionCode 7
-        versionName "1.6"
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
     }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-        }
+    dependencies {
+        classpath "com.android.tools.build:gradle:8.2.2"
     }
 }
 
-dependencies {
-    implementation "androidx.appcompat:appcompat:1.6.1"
-    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
 }
