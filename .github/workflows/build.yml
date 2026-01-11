@@ -10,28 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # リポジトリのチェックアウト
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      # JDK 17 のセットアップ
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
 
-      # gradlew に実行権限を付与
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      # Debug APK をビルド
       - name: Build Debug APK
         run: ./gradlew :app:assembleDebug
 
-      # Debug APK を安全にアップロード（サブフォルダも含む）
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: debug-apk
-          path: app/build/outputs/apk/debug/**/*.apk
+          name: app-debug-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
