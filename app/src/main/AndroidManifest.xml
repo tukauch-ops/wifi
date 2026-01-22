@@ -5,7 +5,7 @@
         android:allowBackup="true"
         android:label="TTS App"
         android:supportsRtl="true"
-        android:theme="@style/Theme.App">
+        android:theme="@android:style/Theme.Light.NoTitleBar">
 
         <activity
             android:name=".MainActivity"
