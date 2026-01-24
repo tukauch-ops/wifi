@@ -12,41 +12,38 @@ import java.util.UUID
 
 class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
-    private lateinit var tts: TextToSpeech
+    private var tts: TextToSpeech? = null
     private lateinit var editText: EditText
-    private var ttsReady = false   // ★重要
+    private lateinit var btnSpeak: Button
+    private lateinit var btnSave: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         editText = findViewById(R.id.editText)
-        val btnSpeak = findViewById<Button>(R.id.btnSpeak)
-        val btnSave = findViewById<Button>(R.id.btnSave)
+        btnSpeak = findViewById(R.id.btnSpeak)
+        btnSave = findViewById(R.id.btnSave)
 
-        tts = TextToSpeech(this, this)
+        // 初期化が終わるまで無効
+        btnSpeak.isEnabled = false
+        btnSave.isEnabled = false
 
-        // ★ Listener は1回だけ
-        tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
-            override fun onStart(utteranceId: String?) {}
-            override fun onDone(utteranceId: String?) {}
-            override fun onError(utteranceId: String?) {}
-        })
+        // applicationContext を使うのが重要
+        tts = TextToSpeech(applicationContext, this)
 
-        btnSpeak.setOnClickListener {
-            if (ttsReady) speakText()
-        }
-
-        btnSave.setOnClickListener {
-            if (ttsReady) saveWav()
-        }
+        btnSpeak.setOnClickListener { speakText() }
+        btnSave.setOnClickListener { saveWav() }
     }
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
-            tts.language = Locale.JAPANESE
-            tts.setSpeechRate(1.0f)
-            ttsReady = true   // ★ここで初めて使える
+            tts?.language = Locale.JAPANESE
+            tts?.setSpeechRate(1.0f)
+
+            // 初期化成功後に有効化
+            btnSpeak.isEnabled = true
+            btnSave.isEnabled = true
         }
     }
 
@@ -54,7 +51,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         val text = editText.text.toString()
         if (text.isBlank()) return
 
-        tts.speak(
+        tts?.speak(
             text,
             TextToSpeech.QUEUE_FLUSH,
             null,
@@ -67,20 +64,20 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         if (text.isBlank()) return
 
         val dir = getExternalFilesDir(null) ?: return
-        val fileName = "tts_${UUID.randomUUID()}.wav"
-        val outFile = File(dir, fileName)
+        val outFile = File(dir, "tts_${UUID.randomUUID()}.wav")
 
-        tts.synthesizeToFile(
-            text,
-            null,
-            outFile,
-            "SAVE_WAV"
-        )
+        tts?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
+            override fun onStart(utteranceId: String?) {}
+            override fun onDone(utteranceId: String?) {}
+            override fun onError(utteranceId: String?) {}
+        })
+
+        tts?.synthesizeToFile(text, null, outFile, "SAVE_WAV")
     }
 
     override fun onDestroy() {
-        tts.stop()
-        tts.shutdown()
+        tts?.stop()
+        tts?.shutdown()
         super.onDestroy()
     }
 }
