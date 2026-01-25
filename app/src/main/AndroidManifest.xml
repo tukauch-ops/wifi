@@ -4,10 +4,10 @@
 
     <application
         android:label="TTS App"
-        android:theme="@android:style/Theme.Light">
+        android:theme="@style/Theme.App">
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.ttsapp.MainActivity"
             android:exported="true">
 
             <intent-filter>
