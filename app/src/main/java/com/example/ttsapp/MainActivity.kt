@@ -13,16 +13,20 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private lateinit var tts: TextToSpeech
     private var ready = false
+    private lateinit var audioFile: File
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // 保存先ファイル
+        audioFile = File(filesDir, "tts.wav")
+
         // TextToSpeech 初期化
         tts = TextToSpeech(this, this)
 
         val editText = findViewById<EditText>(R.id.editText)
-        val speakButton = findViewById<Button>(R.id.button)
+        val speakButton = findViewById<Button>(R.id.buttonSpeak)
         val playButton = findViewById<Button>(R.id.btnPlay)
 
         // 読み上げ＋保存
@@ -37,11 +41,10 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         // 保存した音声を再生
         playButton.setOnClickListener {
-            val file = File(filesDir, "tts.wav")
-            if (!file.exists()) return@setOnClickListener
+            if (!audioFile.exists()) return@setOnClickListener
 
             val player = MediaPlayer()
-            player.setDataSource(file.absolutePath)
+            player.setDataSource(audioFile.absolutePath)
             player.prepare()
             player.start()
         }
@@ -55,8 +58,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun speakAndSave(text: String) {
-        val file = File(filesDir, "tts.wav")
-
         // その場で読み上げ
         tts.speak(
             text,
@@ -69,7 +70,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         tts.synthesizeToFile(
             text,
             null,
-            file,
+            audioFile,
             "save"
         )
     }
