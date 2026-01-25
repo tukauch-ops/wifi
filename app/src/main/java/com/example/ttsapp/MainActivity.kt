@@ -1,5 +1,6 @@
 package com.example.ttsapp
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.widget.Button
@@ -17,18 +18,32 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // TextToSpeech 初期化
         tts = TextToSpeech(this, this)
 
         val editText = findViewById<EditText>(R.id.editText)
-        val button = findViewById<Button>(R.id.button)
+        val speakButton = findViewById<Button>(R.id.button)
+        val playButton = findViewById<Button>(R.id.btnPlay)
 
-        button.setOnClickListener {
+        // 読み上げ＋保存
+        speakButton.setOnClickListener {
             if (!ready) return@setOnClickListener
 
             val text = editText.text.toString()
             if (text.isBlank()) return@setOnClickListener
 
             speakAndSave(text)
+        }
+
+        // 保存した音声を再生
+        playButton.setOnClickListener {
+            val file = File(filesDir, "tts.wav")
+            if (!file.exists()) return@setOnClickListener
+
+            val player = MediaPlayer()
+            player.setDataSource(file.absolutePath)
+            player.prepare()
+            player.start()
         }
     }
 
@@ -42,20 +57,20 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun speakAndSave(text: String) {
         val file = File(filesDir, "tts.wav")
 
-        // 再生
+        // その場で読み上げ
         tts.speak(
             text,
             TextToSpeech.QUEUE_FLUSH,
             null,
-            "speak1"
+            "speak"
         )
 
-        // 保存（アプリ専用フォルダ）
+        // 音声を保存（アプリ専用フォルダ）
         tts.synthesizeToFile(
             text,
             null,
             file,
-            "save1"
+            "save"
         )
     }
 
