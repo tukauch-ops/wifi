@@ -6,11 +6,12 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- 入力欄 -->
+    <!-- 入力欄（上） -->
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:fillViewport="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/buttonSpeak"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,11 +23,14 @@
             android:layout_height="wrap_content"
             android:hint="ここに文字を入力"
             android:inputType="textMultiLine"
+            android:gravity="top"
             android:minLines="6"
-            android:gravity="top"/>
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:textIsSelectable="true"/>
     </ScrollView>
 
-    <!-- 読み上げ -->
+    <!-- 読み上げ（中央） -->
     <Button
         android:id="@+id/buttonSpeak"
         android:layout_width="wrap_content"
@@ -36,7 +40,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- 保存 -->
+    <!-- 保存（読み上げの下） -->
     <Button
         android:id="@+id/buttonSave"
         android:layout_width="wrap_content"
@@ -46,12 +50,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- 再生 -->
+    <!-- 再生（保存の下） -->
     <Button
         android:id="@+id/buttonPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="保存音声を再生"
+        android:text="再生"
         android:enabled="false"
         app:layout_constraintTop_toBottomOf="@id/buttonSave"
         app:layout_constraintStart_toStartOf="parent"
