@@ -1,4 +1,4 @@
-package com.example.ttsapp2
+package com.example.ttsapp
 
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         val saveButton = findViewById<Button>(R.id.buttonSave)
         val playButton = findViewById<Button>(R.id.buttonPlay)
 
+        // 貼り付け確実化
+        editText.isFocusableInTouchMode = true
         editText.requestFocus()
 
         audioFile = File(filesDir, "tts.wav")
@@ -85,17 +87,9 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                             val ok = audioFile.exists() && audioFile.length() > 0
                             if (ok) {
                                 findViewById<Button>(R.id.buttonPlay).isEnabled = true
-                                Toast.makeText(
-                                    this@MainActivity,
-                                    "保存完了",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                Toast.makeText(this@MainActivity, "保存完了", Toast.LENGTH_SHORT).show()
                             } else {
-                                Toast.makeText(
-                                    this@MainActivity,
-                                    "保存失敗",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                Toast.makeText(this@MainActivity, "保存失敗", Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
@@ -103,11 +97,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
                 override fun onError(utteranceId: String?) {
                     runOnUiThread {
-                        Toast.makeText(
-                            this@MainActivity,
-                            "音声生成エラー",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(this@MainActivity, "音声生成エラー", Toast.LENGTH_SHORT).show()
                     }
                 }
             })
