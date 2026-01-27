@@ -6,27 +6,6 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- 読み上げボタン（中央） -->
-    <Button
-        android:id="@+id/buttonSpeak"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="読み上げ"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <!-- 保存ボタン（読み上げの下） -->
-    <Button
-        android:id="@+id/buttonSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="保存"
-        app:layout_constraintTop_toBottomOf="@id/buttonSpeak"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
     <!-- 入力欄（上半分） -->
     <ScrollView
         android:id="@+id/scrollView"
@@ -50,5 +29,35 @@
             android:focusableInTouchMode="true"
             android:textIsSelectable="true"/>
     </ScrollView>
+
+    <!-- 読み上げボタン（中央） -->
+    <Button
+        android:id="@+id/buttonSpeak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="読み上げ"
+        app:layout_constraintTop_toBottomOf="@id/scrollView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- 保存ボタン（読み上げの下） -->
+    <Button
+        android:id="@+id/buttonSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="保存"
+        app:layout_constraintTop_toBottomOf="@id/buttonSpeak"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- 保存音声を再生 -->
+    <Button
+        android:id="@+id/btnPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="保存音声を再生"
+        app:layout_constraintTop_toBottomOf="@id/buttonSave"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
