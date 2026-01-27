@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.ttsapp'
+    namespace 'com.example.ttsapp2'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.ttsapp"
+        applicationId "com.example.ttsapp2"
         minSdk 21
         targetSdk 34
         versionCode 1
@@ -21,8 +21,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile(
-                    'proguard-android-optimize.txt'),
-                    'proguard-rules.pro'
+                    'proguard-android-optimize.txt'
+            ), 'proguard-rules.pro'
         }
     }
 
