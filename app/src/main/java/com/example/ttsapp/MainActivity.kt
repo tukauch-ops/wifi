@@ -1,4 +1,4 @@
-package com.example.ttsapp
+package com.example.ttsapp2
 
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -26,10 +26,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         val saveButton = findViewById<Button>(R.id.buttonSave)
         val playButton = findViewById<Button>(R.id.buttonPlay)
 
-        // 貼り付け確実化
-        editText.isFocusableInTouchMode = true
         editText.requestFocus()
-
         audioFile = File(filesDir, "tts.wav")
         tts = TextToSpeech(this, this)
 
@@ -80,7 +77,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
             tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
                 override fun onStart(utteranceId: String?) {}
-
                 override fun onDone(utteranceId: String?) {
                     if (utteranceId == "utter_save") {
                         runOnUiThread {
@@ -94,7 +90,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                         }
                     }
                 }
-
                 override fun onError(utteranceId: String?) {
                     runOnUiThread {
                         Toast.makeText(this@MainActivity, "音声生成エラー", Toast.LENGTH_SHORT).show()
