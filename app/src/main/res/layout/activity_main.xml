@@ -21,12 +21,13 @@
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="ここに文字を入力"
+            android:hint="ここに文字を入力／貼り付け"
             android:inputType="textMultiLine"
             android:gravity="top"
             android:minLines="6"
             android:focusable="true"
             android:focusableInTouchMode="true"
+            android:longClickable="true"
             android:textIsSelectable="true"/>
     </ScrollView>
 
@@ -50,12 +51,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- 再生（保存の下） -->
+    <!-- 保存音声を再生 -->
     <Button
         android:id="@+id/buttonPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="再生"
+        android:text="保存音声を再生"
         android:enabled="false"
         app:layout_constraintTop_toBottomOf="@id/buttonSave"
         app:layout_constraintStart_toStartOf="parent"
