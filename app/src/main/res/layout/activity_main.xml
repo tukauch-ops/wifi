@@ -6,43 +6,45 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/editText"
+    <!-- 入力欄（上） -->
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:hint="ここに文字を入力／貼り付け"
-        android:gravity="top"
-        android:inputType="textMultiLine"
-        android:minLines="5"
+        android:fillViewport="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/buttonSpeak"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ここに文字を入力"
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:minLines="6"/>
+    </ScrollView>
+
+    <!-- 読み上げ（中央） -->
     <Button
         android:id="@+id/buttonSpeak"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="読み上げ"
-        app:layout_constraintTop_toBottomOf="@id/editText"
+        app:layout_constraintTop_toBottomOf="@id/scrollView"
+        app:layout_constraintBottom_toTopOf="@id/buttonSave"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <!-- 保存（読み上げの下） -->
     <Button
         android:id="@+id/buttonSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="保存"
         app:layout_constraintTop_toBottomOf="@id/buttonSpeak"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <Button
-        android:id="@+id/buttonPlay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="保存音声を再生"
-        app:layout_constraintTop_toBottomOf="@id/buttonSave"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
