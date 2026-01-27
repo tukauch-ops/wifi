@@ -21,19 +21,20 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        audioFile = File(filesDir, "tts.wav")
-
-        tts = TextToSpeech(this, this)
-
         val editText = findViewById<EditText>(R.id.editText)
         val speakButton = findViewById<Button>(R.id.buttonSpeak)
         val saveButton = findViewById<Button>(R.id.buttonSave)
         val playButton = findViewById<Button>(R.id.buttonPlay)
 
-        // 初期状態：再生不可
+        // ★ 起動直後から貼り付けできるようにする
+        editText.requestFocus()
+
+        audioFile = File(filesDir, "tts.wav")
+        tts = TextToSpeech(this, this)
+
         playButton.isEnabled = audioFile.exists() && audioFile.length() > 0
 
-        // 読み上げ
+        // 読み上げ（その場で再生）
         speakButton.setOnClickListener {
             if (!ready) return@setOnClickListener
             val text = editText.text.toString()
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, "utter_speak")
         }
 
-        // 保存
+        // 保存（WAV）
         saveButton.setOnClickListener {
             if (!ready) return@setOnClickListener
             val text = editText.text.toString()
@@ -50,13 +51,13 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 return@setOnClickListener
             }
             tts.synthesizeToFile(text, null, audioFile, "utter_save")
-            Toast.makeText(this, "保存を開始しました", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "保存中…", Toast.LENGTH_SHORT).show()
         }
 
         // 再生
         playButton.setOnClickListener {
             if (!audioFile.exists() || audioFile.length() == 0L) {
-                Toast.makeText(this, "保存済み音声がありません", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "保存音声がありません", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             try {
@@ -66,7 +67,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 player.start()
                 player.setOnCompletionListener { it.release() }
             } catch (e: Exception) {
-                Toast.makeText(this, "再生に失敗しました", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "再生失敗", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -82,17 +83,18 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 override fun onDone(utteranceId: String?) {
                     if (utteranceId == "utter_save") {
                         runOnUiThread {
-                            if (audioFile.exists() && audioFile.length() > 0) {
+                            val ok = audioFile.exists() && audioFile.length() > 0
+                            if (ok) {
+                                findViewById<Button>(R.id.buttonPlay).isEnabled = true
                                 Toast.makeText(
                                     this@MainActivity,
                                     "保存完了",
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                findViewById<Button>(R.id.buttonPlay).isEnabled = true
                             } else {
                                 Toast.makeText(
                                     this@MainActivity,
-                                    "保存に失敗しました",
+                                    "保存失敗",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
@@ -102,14 +104,11 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
                 override fun onError(utteranceId: String?) {
                     runOnUiThread {
-                        Toast.makeText(
-                            this@MainActivity,
-                            "音声生成エラー",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(this@MainActivity, "音声生成エラー", Toast.LENGTH_SHORT).show()
                     }
                 }
             })
+
         } else {
             Toast.makeText(this, "TTS 初期化失敗", Toast.LENGTH_SHORT).show()
         }
