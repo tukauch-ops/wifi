@@ -6,40 +6,32 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- 入力欄（画面上部） -->
-    <ScrollView
-        android:id="@+id/scrollView"
+    <EditText
+        android:id="@+id/editText"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:fillViewport="true"
+        android:hint="ここに文字を入力／貼り付け"
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        android:minLines="5"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:longClickable="true"
+        android:textIsSelectable="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/buttonSpeak"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="ここに文字を入力／貼り付け"
-            android:minLines="5"
-            android:gravity="top"
-            android:inputType="textMultiLine"
-            android:focusable="true"
-            android:focusableInTouchMode="true"/>
-    </ScrollView>
-
-    <!-- 読み上げ -->
     <Button
         android:id="@+id/buttonSpeak"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="読み上げ"
-        app:layout_constraintTop_toBottomOf="@id/scrollView"
+        app:layout_constraintTop_toBottomOf="@id/editText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- 保存 -->
     <Button
         android:id="@+id/buttonSave"
         android:layout_width="wrap_content"
@@ -49,7 +41,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- 再生 -->
     <Button
         android:id="@+id/buttonPlay"
         android:layout_width="wrap_content"
