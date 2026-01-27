@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- 入力欄（上） -->
+    <!-- 入力欄（貼り付け可） -->
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="0dp"
@@ -21,13 +21,16 @@
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="ここに文字を入力"
+            android:hint="ここに文字を貼り付け"
             android:inputType="textMultiLine"
             android:gravity="top"
             android:minLines="6"
+
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:textIsSelectable="true"/>
+            android:longClickable="true"
+            android:textIsSelectable="true"
+            android:cursorVisible="true"/>
     </ScrollView>
 
     <!-- 読み上げ -->
