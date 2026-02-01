@@ -8,20 +8,18 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <service
-            android:name=".FloatingButtonService"
-            android:exported="false" />
-
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.ttsapp.MainActivity"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+
+        <service
+            android:name="com.example.ttsapp.FloatingButtonService"
+            android:exported="false" />
 
     </application>
 
