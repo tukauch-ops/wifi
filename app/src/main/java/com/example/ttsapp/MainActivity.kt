@@ -19,11 +19,11 @@ class MainActivity : AppCompatActivity() {
             )
             startActivity(intent)
         } else {
-            // フローティングボタン起動
+            // フローティングサービス起動
             startService(Intent(this, FloatingButtonService::class.java))
         }
 
-        // 画面は表示しない（裏で動作）
+        // Activityを閉じる（画面を残さない）
         finish()
     }
 }
