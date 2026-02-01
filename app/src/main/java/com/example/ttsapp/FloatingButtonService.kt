@@ -19,7 +19,7 @@ class FloatingButtonService : Service() {
         windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
 
         floatingView = ImageView(this).apply {
-            setImageResource(android.R.drawable.ic_menu_wifi)
+            setImageResource(android.R.drawable.stat_sys_wifi)
         }
 
         val params = WindowManager.LayoutParams(
